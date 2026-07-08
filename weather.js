@@ -1,12 +1,14 @@
 document.getElementById('searchBtn').addEventListener('click', function() {
-    const city = document.getElementById('cityInput').value.trim();
+    let city = document.getElementById('cityInput').value.trim();
 
     if (city === '') {
         alert('Please enter a city name');
         return;
     }
 
-    const url = `https://wttr.in{city}?format=j1`;
+    // This converts spaces into web-safe formatting (e.g., "New York" becomes "New%20York")
+    const safeCityName = encodeURIComponent(city);
+    const url = `https://wttr.in{safeCityName}?format=j1`;
 
     fetch(url)
         .then(response => {

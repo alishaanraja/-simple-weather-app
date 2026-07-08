@@ -6,7 +6,7 @@ document.getElementById('searchBtn').addEventListener('click', function() {
         return;
     }
 
-    const url = `https://deno.dev{encodeURIComponent(city)}`;
+    const url = `https://open-meteo.com{encodeURIComponent(city)}&count=1&language=en&format=json`;
 
     fetch(url)
         .then(response => response.json())
@@ -18,7 +18,7 @@ document.getElementById('searchBtn').addEventListener('click', function() {
             const location = searchData.results[0];
             const lat = location.latitude;
             const lon = location.longitude;
-            const displayName = `${location.name}, ${location.country}`;
+            const displayName = `${location.name}, ${location.country || ''}`;
 
             const weatherUrl = `https://open-meteo.com{lat}&longitude=${lon}&current=temperature_2m,weather_code`;
 

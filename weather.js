@@ -1,37 +1,114 @@
-document.getElementById('searchBtn').addEventListener('click', function() {
-    const city = document.getElementById('cityInput').value.trim();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Weather App</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f7fc;
+            color: #3d444f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .weather-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            text-align: center;
+            max-width: 350px;
+            width: 100%;
+            border: 1px solid #e2edf7;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #d4e5f7;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+        button {
+            background-color: #4b6584;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #3b526d;
+        }
+        .result {
+            margin-top: 25px;
+        }
+        .temp {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4b6584;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
 
-    if (city === '') {
-        alert('Please enter a city name');
-        return;
-    }
+    <div class="weather-card">
+        <h2>⛅ Weather App</h2>
+        <input type="text" id="cityInput" placeholder="Enter city name...">
+        <button id="searchBtn">Get Weather</button>
 
-    const cleanCityName = city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
-    
-    const conditions = [
-        "Clear Sky ☀️", 
-        "Partly Cloudy ⛅", 
-        "Overcast ☁️", 
-        "Light Rain 🌧️", 
-        "Passing Showers 🌦️", 
-        "Thunderstorm ⛈️"
-    ];
-    
-    let hash = 0;
-    for (let i = 0; i < cleanCityName.length; i++) {
-        hash = cleanCityName.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    
-    const currentHour = new Date().getHours();
-    const currentDay = new Date().getDate();
-    
-    const deterministicSeed = Math.abs(hash + currentHour + currentDay);
-    
-    const generatedTemp = 15 + (deterministicSeed % 21); 
-    const generatedCondition = conditions[deterministicSeed % conditions.length];
-    
-    document.getElementById('cityName').innerText = `${cleanCityName}`;
-    document.getElementById('temperature').innerText = `${generatedTemp}°C`;
-    document.getElementById('description').innerText = generatedCondition;
-    document.getElementById('weatherResult').style.display = 'block';
-});
+        <div class="result" id="weatherResult" style="display: none;">
+            <h3 id="cityName">City Name</h3>
+            <div class="temp" id="temperature">--°C</div>
+            <p id="description">Condition</p>
+        </div>
+    </div>
+
+    <!-- The Javascript is now embedded cleanly right here -->
+    <script>
+        document.getElementById('searchBtn').addEventListener('click', function() {
+            const city = document.getElementById('cityInput').value.trim();
+
+            if (city === '') {
+                alert('Please enter a city name');
+                return;
+            }
+
+            const cleanCityName = city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
+            
+            const conditions = [
+                "Clear Sky ☀️", 
+                "Partly Cloudy ⛅", 
+                "Overcast ☁️", 
+                "Light Rain 🌧️", 
+                "Passing Showers 🌦️", 
+                "Thunderstorm ⛈️"
+            ];
+            
+            let hash = 0;
+            for (let i = 0; i < cleanCityName.length; i++) {
+                hash = cleanCityName.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            
+            const currentHour = new Date().getHours();
+            const currentDay = new Date().getDate();
+            
+            const deterministicSeed = Math.abs(hash + currentHour + currentDay);
+            
+            const generatedTemp = 15 + (deterministicSeed % 21); 
+            const generatedCondition = conditions[deterministicSeed % conditions.length];
+            
+            document.getElementById('cityName').innerText = `${cleanCityName}`;
+            document.getElementById('temperature').innerText = `${generatedTemp}°C`;
+            document.getElementById('description').innerText = generatedCondition;
+            document.getElementById('weatherResult').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

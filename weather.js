@@ -35,4 +35,3 @@ document.getElementById('searchBtn').addEventListener('click', function() {
     document.getElementById('description').innerText = generatedCondition;
     document.getElementById('weatherResult').style.display = 'block';
 });
-<script src="weather.js?v=2"></script>
